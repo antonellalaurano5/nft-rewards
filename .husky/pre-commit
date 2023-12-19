@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo ' Styling, testing and building your project before committing'
+
+
+
+# Check ESLint Standards
+yarn run check-lint 
+
+# Check tsconfig standards
+yarn run check-types

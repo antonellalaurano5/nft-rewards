@@ -1,0 +1,47 @@
+@import '/styles/utilities.scss';
+@import '/styles/variables.scss';
+
+$medida: 1920;
+.bgShadow {
+	background: rgba(0, 0, 0, 0.8);
+}
+.bgContainer {
+	background-color: white;
+}
+.rounded {
+	border-radius: 8px;
+}
+.paddingModal {
+	padding: calculate-vw(126, $medida);
+}
+.paddingModalChildren {
+	padding: calculate-vw(48, $medida) calculate-vw(160, $medida);
+	@media screen and (max-width: 768px) {
+		$medida: 768;
+		padding-top: calculate-vw(38, $medida);
+		padding-left: calculate-vw(24, $medida);
+		padding-right: calculate-vw(24, $medida);
+		padding-bottom: calculate-vw(38, $medida);
+	}
+	@media screen and (max-width: 414px) {
+		$medida: 414;
+		padding-top: calculate-vw(36, $medida);
+		padding-left: calculate-vw(16, $medida);
+		padding-right: calculate-vw(16, $medida);
+		padding-bottom: calculate-vw(18, $medida);
+		row-gap: calculate-vw(24, $medida);
+	}
+	@media screen and (max-width: 375px) {
+		$medida: 375;
+		padding-top: calculate-vw(36, $medida);
+		padding-left: calculate-vw(16, $medida);
+		padding-right: calculate-vw(16, $medida);
+		padding-bottom: calculate-vw(18, $medida);
+		row-gap: calculate-vw(24, $medida);
+	}
+}
+
+.bgOverlay {
+	background: rgba(27, 27, 27, 0.6);
+	backdrop-filter: blur(40px);
+}
