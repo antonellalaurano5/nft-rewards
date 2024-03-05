@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { signOut } from "next-auth/react";
 
 import { useDisconnect } from "wagmi";
+import { UserIcon } from "@heroicons/react/24/solid";
 export const UserDropdown = () => {
   const { disconnect } = useDisconnect();
   // dropdown props
@@ -14,10 +15,8 @@ export const UserDropdown = () => {
       <div>
         <Menu.Button className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
           <span className="sr-only">Open options</span>
-          <img
-            alt="..."
-            src="/img/team-1-800x800.jpg"
-            className="w-5 h-5  rounded-full align-middle border-none shadow-lg"
+          <UserIcon 
+            className="text-gray-400 w-8 h-8 rounded-full align-middle border-none shadow-lg"
           />
         </Menu.Button>
       </div>
@@ -33,7 +32,7 @@ export const UserDropdown = () => {
       >
         <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
-            <Menu.Item>
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   href="#"
@@ -58,8 +57,8 @@ export const UserDropdown = () => {
                   Support
                 </a>
               )}
-            </Menu.Item>
-            <Menu.Item>
+            </Menu.Item> */}
+            {/* <Menu.Item>
               {({ active }) => (
                 <a
                   href="#"
@@ -71,7 +70,7 @@ export const UserDropdown = () => {
                   License
                 </a>
               )}
-            </Menu.Item>
+            </Menu.Item> */}
             <form method="POST" action="#">
               <Menu.Item>
                 {({ active }) => (

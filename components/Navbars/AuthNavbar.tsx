@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";
-import { PagesDropdown } from "../Dropdowns";
+// import Link from "next/link";
+// import { PagesDropdown } from "../Dropdowns";
 // components
 
 export const AuthNavbar = () => {
@@ -10,11 +10,11 @@ export const AuthNavbar = () => {
       <nav className="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg">
         <div className="container px-4 mx-auto flex flex-wrap items-center justify-between">
           <div className="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start">
-            <Link href="/">
+            {/* <Link href="/">
               <button className="text-white text-sm font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase">
                 Notus NextJS
               </button>
-            </Link>
+            </Link> */}
             <button
               className="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
               type="button"
@@ -23,7 +23,7 @@ export const AuthNavbar = () => {
               <i className="text-white fas fa-bars"></i>
             </button>
           </div>
-          <div
+          {/* <div
             className={
               "lg:flex flex-grow items-center bg-white lg:bg-opacity-0 lg:shadow-none" +
               (navbarOpen ? " block rounded shadow-lg" : " hidden")
@@ -90,7 +90,7 @@ export const AuthNavbar = () => {
                 </button>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
       </nav>
     </>

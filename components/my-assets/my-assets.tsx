@@ -1,6 +1,10 @@
 import React from "react";
 import Moralis from "moralis";
-import { EvmChain } from "@moralisweb3/evm-utils";
+import Web3 from "web3";
+// import { EvmChain } from "@moralisweb3/evm-utils";
+import { contractABI, contractAddress } from "../../contract";
+
+const web3 = new Web3(Web3.givenProvider);
 
 import clsx from "clsx";
 import { useAccount } from "wagmi";
@@ -16,6 +20,7 @@ export const MyAssetsComponent = () => {
   const [Option, setOption] = React.useState("NFTS");
   const { symbol } = useIsCollection();
   const [DataAsset, setDataAsset] = React.useState<any>();
+  const [addressTo, setAddressTo] = React.useState<string>('');
 
   const { Modal, hide, isShow, show } = useModal();
   const RunApp = async () => {
@@ -25,20 +30,19 @@ export const MyAssetsComponent = () => {
         // ...and any other configuration
       });
     const address = addressWallet || "";
-    const chain = EvmChain.GOERLI;
+    //const chain = EvmChain.GOERLI;
     const response = await Moralis.EvmApi.nft.getWalletNFTs({
       address,
-      chain,
+      chain: '0x5'
     });
 
     const results = await response.result;
     setAssetsNfts(results);
 
     const resultsTokens = await Moralis.EvmApi.token.getWalletTokenBalances({
-      chain: chain,
+      chain: '0x5',
       address: address,
     });
-
    
     setAssetsTokens(resultsTokens.raw);
   };
@@ -60,10 +64,30 @@ export const MyAssetsComponent = () => {
    
   };
 
+  const transfer = async () => {
+    if (DataAsset.tokenId, addressTo){
+      try {
+        const contract = new web3.eth.Contract(contractABI as any, contractAddress);
+        const response = await contract.methods
+          .safeTransferFrom(addressWallet, addressTo, DataAsset.tokenId)
+          .send({ from: addressWallet });
+        const tokenId = response.events.Transfer.returnValues.tokenId;
+
+        alert(
+          `NFT successfully claim. Contract address - Token ID - ${tokenId}`
+        );
+        RunApp();
+      } catch (err) {
+        console.error(err);
+        alert("Something went wrong!");
+      }
+    }
+  };
+console.log(AssetsNfts)
   return (
-    <div className="relative">
+    <div className="relative mt-32 h-screen">
       <div>
-        <h5 className="text-2xl font-bold text-white">My Assets</h5>
+        <h5 className="text-2xl font-bold">My Assets</h5>
       </div>
       <div>
         <div className="sm:hidden">
@@ -96,9 +120,11 @@ export const MyAssetsComponent = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-4  gap-x-4 gap-y-4 mt-6">
+      <div className="grid grid-cols-3 lg:grid-cols-3 gap-4 mt-6">
         {Option === "NFTS" &&
-          AssetsNfts?.map((asset: any, index: number) => {
+          AssetsNfts
+          ?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress)
+          .map((asset: any, index: number) => {
             if (asset._data?.symbol === symbol) {
               return (
                 <div key={index} className="px-4 py-3 bg-white rounded-lg">
@@ -112,7 +138,7 @@ export const MyAssetsComponent = () => {
                   </div>
                   <div className="mt-3">
                     <button
-                      className="bg-green-600 p-1 rounded-lg text-white font-bold"
+                      className="bg-green-600 p-1 rounded-lg text-white font-bold w-full"
                       onClick={() => {
                         show();
                         setDataAsset(asset._data);
@@ -153,6 +179,13 @@ export const MyAssetsComponent = () => {
             );
           })}
       </div>
+      
+      {(Option == 'NFTS' && !AssetsNfts?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress).length || 
+        Option == 'TOKENS' && !AssetsTokens?.length) && (
+          <p className="break-words font-medium w-full text-center py-10 text-2xl text-gray-400">
+            You don't have assets yet
+          </p>
+      )}
 
       <Modal isShow={isShow}>
         <div>
@@ -175,6 +208,15 @@ export const MyAssetsComponent = () => {
               </div>
             </div>
           </div>
+          <div>
+            <input
+              type="text"
+              className="border rounded-lg p-2 text-lg border-gray-400 w-full mt-8"
+              placeholder="address"
+              value={addressTo}
+              onChange={(e) => setAddressTo(e.target.value)}
+            />
+          </div>
           <div className="flex gap-x-4 justify-end mt-10">
             <button
               className="bg-red-600 p-2 rounded-lg text-white font-bold"
@@ -185,8 +227,10 @@ export const MyAssetsComponent = () => {
               Cancel
             </button>
             <button
+              disabled={!addressTo}
               className="bg-green-600 p-2 rounded-lg text-white font-bold"
               onClick={() => {
+                transfer();
                 hide();
               }}
             >

@@ -15,7 +15,10 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { SessionProvider } from "next-auth/react";
 import { PermissionsProvider } from "@/context/permissions";
+import { QueryClient, QueryClientProvider } from 'react-query'
 /* import { WalletConnectConnector } from "wagmi/connectors/walletConnect"; */
+
+const queryClient = new QueryClient()
 
 export default function App({ Component, pageProps }: any) {
   const Layout = Component.layout || (({ children }: any) => <>{children}</>);
@@ -56,19 +59,21 @@ export default function App({ Component, pageProps }: any) {
     <React.Fragment>
       <WagmiConfig config={config}>
         <SessionProvider session={pageProps?.session}>
-          <Head>
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-            <title>Notus NextJS by Creative Tim</title>
-            <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-          </Head>
-          <PermissionsProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </PermissionsProvider>
+          <QueryClientProvider client={queryClient}>
+            <Head>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, shrink-to-fit=no"
+              />
+              <title>NFT Rewards</title>
+              <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+            </Head>
+            <PermissionsProvider>
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </PermissionsProvider>
+          </QueryClientProvider>
         </SessionProvider>
       </WagmiConfig>
     </React.Fragment>

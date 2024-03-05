@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import { getCsrfToken, getSession, signIn } from "next-auth/react";
 import { SiweMessage } from "siwe";
 import { /* useDisconnect, */ useNetwork, useSignMessage } from "wagmi";
@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { useAccount, useConnect } from "wagmi";
 import { GetServerSideProps } from "next";
 import { NetworkSwitcher } from "@/components/wagmi";
+import axios from "axios";
 
 const Login = () => {
   const router = useRouter();
@@ -45,10 +46,26 @@ const Login = () => {
         signature,
         callbackUrl,
       });
-			
-      router.push("/admin/dashboard");
-    } catch (error) {
-      window.alert(error);
+      const res = await axios.get(`/api/user/${address}`);
+      if (res.status == 200) {
+        if (res.data.role == 'admin') {
+          router.push("/admin/dashboard");
+        } else {
+          router.push("/admin/my-assets");
+        }
+      }
+    } catch (e) {
+      const error = e as any;
+      console.log(error)
+      if (error?.response?.data.status == 404) {
+        const res = await axios.post(`/api/user/${address}`, {
+          id: address,
+          role: 'user'
+        });
+        if (res.status == 200) {
+          router.push("/admin/my-assets");
+        }
+      }
     }
   };
  
@@ -104,11 +121,11 @@ const Login = () => {
                 )}
               </div>
             </div>
-            <div className="flex flex-wrap mt-6 relative">
+            {/* <div className="flex flex-wrap mt-6 relative">
               <div className="w-1/2 text-right">
                 <Link href="/auth/register"></Link>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

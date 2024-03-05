@@ -5,11 +5,11 @@ import React from "react";
 interface Props {
   statSubtitle: string;
   statTitle: string;
-  statArrow: string;
-  statPercent: string;
+  // statArrow: string;
+  // statPercent: string;
   // can be any of the text color utilities
   // from tailwindcss
-  statPercentColor: string;
+  // statPercentColor: string;
   statDescripiron: string;
   statIconName: string;
   // can be any of the background color utilities
@@ -20,9 +20,9 @@ interface Props {
 export const CardStats: React.FC<Props> = ({
   statSubtitle = "Traffic",
   statTitle = "350,897",
-  statArrow = "up",
-  statPercent = "3.48",
-  statPercentColor= "text-emerald-500",
+  // statArrow = "up",
+  // statPercent = "3.48",
+  // statPercentColor= "text-emerald-500",
   statDescripiron = "Since last month",
   statIconName = "far fa-chart-bar",
   statIconColor= "bg-red-500",
@@ -52,7 +52,7 @@ export const CardStats: React.FC<Props> = ({
             </div>
           </div>
           <p className="text-sm text-blueGray-400 mt-4">
-            <span className={statPercentColor + " mr-2"}>
+            {/* <span className={statPercentColor + " mr-2"}>
               <i
                 className={
                   statArrow === "up"
@@ -63,7 +63,7 @@ export const CardStats: React.FC<Props> = ({
                 }
               ></i>{" "}
               {statPercent}%
-            </span>
+            </span> */}
             <span className="whitespace-nowrap">{statDescripiron}</span>
           </p>
         </div>

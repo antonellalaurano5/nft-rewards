@@ -5,11 +5,13 @@ import { useRouter } from "next/router";
 import { NotificationDropdown, UserDropdown } from "../Dropdowns";
 import { useIsCollection } from "@/hooks";
 import { PermissionsContext } from "@/context/permissions";
+import { useUser } from "@/hooks/user";
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const router = useRouter();
   const { permissionUser, permissionAdmin } = useIsCollection();
+  const { user } = useUser();
   /*  const [BandResultUser, setBandResultUser] = React.useState<any>(false);
   const [BandResultAdmin, setBandResulAdmin] = React.useState<any>(false); */
 
@@ -22,10 +24,8 @@ export default function Sidebar() {
 
   React.useEffect(() => {
     setBandResulAdmin(permissionAdmin());
-    permissionUser().then((resp) => {
-      setBandResultUser(resp);
-    });
-  }, []);
+    setBandResultUser(permissionUser());
+  }, [user]);
 
   return (
     <>
@@ -103,33 +103,35 @@ export default function Sidebar() {
             <hr className="my-4 md:min-w-full" />
             {/* Heading */}
             <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
-              Admin Layout Pages
+              {user?.role == 'admin' ? 'Admin' : 'User'}
             </h6>
             {/* Navigation */}
 
             <ul className="md:flex-col md:min-w-full flex flex-col list-none">
-              <li className="items-center">
-                <Link href="/admin/dashboard">
-                  <button
-                    className={
-                      "text-xs uppercase py-3 font-bold block " +
-                      (router.pathname.indexOf("/admin/dashboard") !== -1
-                        ? "text-lightBlue-500 hover:text-lightBlue-600"
-                        : "text-blueGray-700 hover:text-blueGray-500")
-                    }
-                  >
-                    <i
+            {BandResultAdmin === true && (
+                <li className="items-center">
+                  <Link href="/admin/dashboard">
+                    <button
                       className={
-                        "fas fa-tv mr-2 text-sm " +
+                        "text-xs uppercase py-3 font-bold block " +
                         (router.pathname.indexOf("/admin/dashboard") !== -1
-                          ? "opacity-75"
-                          : "text-blueGray-300")
+                          ? "text-lightBlue-500 hover:text-lightBlue-600"
+                          : "text-blueGray-700 hover:text-blueGray-500")
                       }
-                    ></i>{" "}
-                    Dashboard
-                  </button>
-                </Link>
-              </li>
+                    >
+                      <i
+                        className={
+                          "fas fa-tv mr-2 text-sm " +
+                          (router.pathname.indexOf("/admin/dashboard") !== -1
+                            ? "opacity-75"
+                            : "text-blueGray-300")
+                        }
+                      ></i>{" "}
+                      Dashboard
+                    </button>
+                  </Link>
+                </li>
+              )}
               {BandResultUser === true && (
                 <li className="items-center">
                   <Link href="/admin/my-assets">
@@ -178,7 +180,7 @@ export default function Sidebar() {
                   </Link>
                 </li>
               )}
-              <li className="items-center">
+              {/* <li className="items-center">
                 <Link href="/admin/settings">
                   <button
                     className={
@@ -245,18 +247,18 @@ export default function Sidebar() {
                     Maps
                   </button>
                 </Link>
-              </li>
+              </li> */}
             </ul>
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            {/* <hr className="my-4 md:min-w-full" /> */}
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Auth Layout Pages
-            </h6>
+            </h6> */}
             {/* Navigation */}
 
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link href="/auth/login">
                   <button className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
@@ -274,17 +276,17 @@ export default function Sidebar() {
                   </button>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            {/* <hr className="my-4 md:min-w-full" /> */}
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               No Layout Pages
-            </h6>
+            </h6> */}
             {/* Navigation */}
 
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="items-center">
                 <Link href="/landing">
                   <button className="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block">
@@ -302,16 +304,16 @@ export default function Sidebar() {
                   </button>
                 </Link>
               </li>
-            </ul>
+            </ul> */}
 
             {/* Divider */}
-            <hr className="my-4 md:min-w-full" />
+            {/* <hr className="my-4 md:min-w-full" /> */}
             {/* Heading */}
-            <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
+            {/* <h6 className="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline">
               Documentation
-            </h6>
+            </h6> */}
             {/* Navigation */}
-            <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+            {/* <ul className="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
               <li className="inline-flex">
                 <a
                   href="https://www.creative-tim.com/learning-lab/tailwind/nextjs/colors/notus"
@@ -407,7 +409,7 @@ export default function Sidebar() {
                   VueJS
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </div>
       </nav>
