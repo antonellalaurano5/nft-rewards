@@ -16,7 +16,7 @@ import { useModal } from "@/hooks/modal";
 export const MyAssetsComponent = () => {
   const { address: addressWallet } = useAccount();
   const [AssetsNfts, setAssetsNfts] = React.useState<any>();
-  const [AssetsTokens, setAssetsTokens] = React.useState<any>();
+  // const [AssetsTokens, setAssetsTokens] = React.useState<any>();
   const [Option, setOption] = React.useState("NFTS");
   const { symbol } = useIsCollection();
   const [DataAsset, setDataAsset] = React.useState<any>();
@@ -39,30 +39,30 @@ export const MyAssetsComponent = () => {
     const results = await response.result;
     setAssetsNfts(results);
 
-    const resultsTokens = await Moralis.EvmApi.token.getWalletTokenBalances({
-      chain: '0x5',
-      address: address,
-    });
-   
-    setAssetsTokens(resultsTokens.raw);
+    // const resultsTokens = await Moralis.EvmApi.token.getWalletTokenBalances({
+    //   chain: '0x5',
+    //   address: address,
+    // });
+
+    // setAssetsTokens(resultsTokens.raw);
   };
 
   React.useEffect(() => {
-    if (!AssetsNfts && !AssetsTokens) {
+    if (!AssetsNfts /*&& !AssetsTokens*/) {
       RunApp();
     }
   }, []);
   const tabs = [
     { name: "Nfts", href: "NFTS" },
-    { name: "Tokens", href: "TOKENS" },
+    // { name: "Tokens", href: "TOKENS" },
   ];
 
-  const getBalanceTokens = (balance: string, decimals?: string) => {
-    const result = Number(balance) / 10 ** (Number(decimals) - 1 || 1);
+  // const getBalanceTokens = (balance: string, decimals?: string) => {
+  //   const result = Number(balance) / 10 ** (Number(decimals) - 1 || 1);
 
-    return result.toFixed(2);
+  //   return result.toFixed(2);
    
-  };
+  // };
 
   const transfer = async () => {
     if (DataAsset.tokenId, addressTo){
@@ -83,109 +83,110 @@ export const MyAssetsComponent = () => {
       }
     }
   };
-console.log(AssetsNfts)
+
   return (
-    <div className="relative mt-32 h-screen">
-      <div>
-        <h5 className="text-2xl font-bold">My Assets</h5>
-      </div>
-      <div>
-        <div className="sm:hidden">
-          <label htmlFor="tabs" className="sr-only">
-            Select a tab
-          </label>
-          
+    <div className="relative mt-32 h-screen flex justify-center w-full">
+      <div className="max-w-4xl">
+        <div>
+          <h5 className="text-2xl font-bold">My Assets</h5>
         </div>
-        <div className="block">
-          <div className="">
-            <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-              {tabs.map((tab) => (
-                <button
-                  key={tab.name}
-                  onClick={() => {
-                    setOption(tab.href);
-                  }}
-                  className={clsx(
-                    "focus:outline-none",
-                    tab.href === Option
-                      ? "border-lightBlue-600 text-lightBlue-600"
-                      : "border-transparent text-gray-500 hover:border-gray-400 hover:text-gray-400",
-                    "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
-                  )}
-                >
-                  {tab.name}
-                </button>
-              ))}
-            </nav>
+        <div>
+          <div className="sm:hidden">
+            <label htmlFor="tabs" className="sr-only">
+              Select a tab
+            </label>
+            
+          </div>
+          <div className="block">
+            <div className="">
+              <nav className="-mb-px flex space-x-8" aria-label="Tabs">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.name}
+                    onClick={() => {
+                      setOption(tab.href);
+                    }}
+                    className={clsx(
+                      "focus:outline-none",
+                      tab.href === Option
+                        ? "border-lightBlue-600 text-lightBlue-600"
+                        : "border-transparent text-gray-500 hover:border-gray-400 hover:text-gray-400",
+                      "whitespace-nowrap border-b-2 py-4 px-1 text-sm font-medium"
+                    )}
+                  >
+                    {tab.name}
+                  </button>
+                ))}
+              </nav>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="grid grid-cols-3 lg:grid-cols-3 gap-4 mt-6">
-        {Option === "NFTS" &&
-          AssetsNfts
-          ?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress)
-          .map((asset: any, index: number) => {
-            if (asset._data?.symbol === symbol) {
-              return (
-                <div key={index} className="px-4 py-3 bg-white rounded-lg">
-                  <div>
-                    <img src={asset._data?.metadata?.image || ""} alt="" />
+        <div className="grid grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-6">
+          {Option === "NFTS" &&
+            AssetsNfts
+            ?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress)
+            .map((asset: any, index: number) => {
+              if (asset._data?.symbol === symbol) {
+                return (
+                  <div key={index} className="px-4 py-3 bg-white rounded-lg">
+                    <div>
+                      <img src={asset._data?.metadata?.image || ""} alt="" />
+                    </div>
+                    <div className="pt-2">
+                      <p className="text-base font-semibold">
+                        {asset._data?.metadata?.name}{" "}
+                      </p>
+                    </div>
+                    <div className="mt-3">
+                      <button
+                        className="bg-green-600 p-1 rounded-lg text-white font-bold w-full"
+                        onClick={() => {
+                          show();
+                          setDataAsset(asset._data);
+                        }}
+                      >
+                        Claim
+                      </button>
+                    </div>
                   </div>
-                  <div className="pt-2">
-                    <p className="text-base font-semibold">
-                      {asset._data?.metadata?.name}{" "}
+                );
+              }
+            })}
+
+          {/* {Option === "TOKENS" &&
+            AssetsTokens?.map((asset: any, index: number) => {
+              return (
+                <div
+                  key={index}
+                  className="px-4 py-3 bg-white rounded-lg flex flex-col gap-y-2"
+                >
+                  <div>
+                    <p className="break-words font-bold text-xl">
+                      {" "}
+                      {asset?.symbol}{" "}
                     </p>
                   </div>
-                  <div className="mt-3">
-                    <button
-                      className="bg-green-600 p-1 rounded-lg text-white font-bold w-full"
-                      onClick={() => {
-                        show();
-                        setDataAsset(asset._data);
-                      }}
-                    >
-                      Claim
-                    </button>
+                  <div>
+                    <p className="break-words font-medium text-lg">
+                      {asset?.name}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-normal text-slate-500">
+                      ${getBalanceTokens(asset?.balance, asset?.decimals)}
+                    </p>
                   </div>
                 </div>
               );
-            }
-          })}
-
-        {Option === "TOKENS" &&
-          AssetsTokens?.map((asset: any, index: number) => {
-            return (
-              <div
-                key={index}
-                className="px-4 py-3 bg-white rounded-lg flex flex-col gap-y-2"
-              >
-                <div>
-                  <p className="break-words font-bold text-xl">
-                    {" "}
-                    {asset?.symbol}{" "}
-                  </p>
-                </div>
-                <div>
-                  <p className="break-words font-medium text-lg">
-                    {asset?.name}
-                  </p>
-                </div>
-                <div>
-                  <p className="font-normal text-slate-500">
-                    ${getBalanceTokens(asset?.balance, asset?.decimals)}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+            })} */}
+        </div>
+        
+        {Option == 'NFTS' && !AssetsNfts?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress).length && (
+            <p className="break-words font-medium w-full text-center py-10 text-2xl text-gray-400">
+              You don't have assets yet
+            </p>
+        )}
       </div>
-      
-      {(Option == 'NFTS' && !AssetsNfts?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress).length || 
-        Option == 'TOKENS' && !AssetsTokens?.length) && (
-          <p className="break-words font-medium w-full text-center py-10 text-2xl text-gray-400">
-            You don't have assets yet
-          </p>
-      )}
 
       <Modal isShow={isShow}>
         <div>
@@ -212,7 +213,7 @@ console.log(AssetsNfts)
             <input
               type="text"
               className="border rounded-lg p-2 text-lg border-gray-400 w-full mt-8"
-              placeholder="address"
+              placeholder="Transfer to"
               value={addressTo}
               onChange={(e) => setAddressTo(e.target.value)}
             />

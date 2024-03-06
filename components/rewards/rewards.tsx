@@ -207,7 +207,7 @@ export const RewardsComponent = () => {
 
 	return (
     <div className="mt-28 min-h-screen pb-20 flex justify-center">
-      <div className="relative max-w-3xl">
+      <div className="relative max-w-4xl">
         <div className="w-full flex justify-between">
           <h5 className="text-2xl font-bold">Rewards</h5>
           
@@ -315,7 +315,7 @@ export const RewardsComponent = () => {
           />
           <button
             disabled={uploading}
-            className="bg-slate-800 p-2 rounded-lg text-white font-medium mt-4 w-full"
+            className="bg-transparent border border-slate-800  p-2 rounded-lg text-slate-800 font-medium mt-4 w-full"
             onClick={() => {
               document?.getElementById('file')?.click();
             }}
@@ -354,7 +354,7 @@ export const RewardsComponent = () => {
       <ModalUsers isShow={isShowUsers}>
         <div>
           <div className="text-center">
-            <p className="font-bold text-4xl ">New IPFS</p>
+            <p className="font-bold text-4xl ">Transfer NFT</p>
           </div>
           <div>
           <div className="flex gap-x-4 gap-12">

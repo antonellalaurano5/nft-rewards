@@ -1,7 +1,19 @@
 import React from "react";
 import { UserDropdown } from "../Dropdowns";
+import { useRouter } from "next/router";
 
 export const AdminNavbar = () => {
+
+  const getSection = (): string => {
+    const router = useRouter();
+    const route = router.pathname;
+    const routeParts = route.split("/");
+    const lastPart = routeParts[routeParts.length - 1];
+    
+    const formattedText = lastPart.split("-").join(" ");
+    return formattedText ?? '';
+  };
+
   return (
     <>
       {/* Navbar */}
@@ -13,7 +25,7 @@ export const AdminNavbar = () => {
             //href=""
             onClick={(e) => e.preventDefault()}
           >
-            Dashboard
+            {getSection()}
           </a>
           {/* Form */}
           {/* <form className="md:flex hidden flex-row flex-wrap items-center lg:ml-auto mr-3">
