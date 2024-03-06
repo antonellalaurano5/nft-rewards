@@ -32,7 +32,6 @@ export default async function handler(req: any, res: any) {
           console.log({ err });
           return res.status(500).send("Upload Error");
         }
-        console.log(files);
         const response = await saveFile(files.file);
         const { IpfsHash } = response;
 

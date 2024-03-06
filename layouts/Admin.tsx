@@ -15,7 +15,16 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         <AdminNavbar />
         {/* Header */}
         <HeaderStats />
-        <div className="px-4 md:px-10 mx-auto w-full -m-24">
+        <div 
+          className="px-4 md:px-10 mx-auto w-full -m-24 min-h-screen"
+          style={{
+            backgroundImage: "url('/img/dashboard_bg.png')",
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPositionX: "right",
+            backgroundPositionY: "bottom",
+          }}
+        >
           {children}
         </div>
       </div>

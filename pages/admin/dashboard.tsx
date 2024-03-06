@@ -27,12 +27,12 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className="flex flex-wrap">
-        <div className="mt-40 w-full">
+      <div className="flex justify-center w-full flex-wrap min-h-screen">
+        <div className="mt-40 w-full max-w-4xl">
           <h1 className="w-full text-center text-4xl font-bold" >
             Users
           </h1>
-          <div className="flex gap-x-4 gap-12">
+          <div className="grid grid-cols-3 gap-x-4 gap-12">
             {users?.map((user) => (
               <CardProfile key={user.id} user={user} />
             ))}
