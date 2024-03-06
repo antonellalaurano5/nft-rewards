@@ -207,7 +207,7 @@ export const RewardsComponent = () => {
 
 	return (
     <div className="mt-28 min-h-screen pb-20 flex justify-center">
-      <div className="relative max-w-4xl">
+      <div className="relative w-full max-w-7xl">
         <div className="w-full flex justify-between">
           <h5 className="text-2xl font-bold">Rewards</h5>
           
@@ -220,9 +220,12 @@ export const RewardsComponent = () => {
           </button>
         </div>
         <h3 className="font-bold mt-10">NFT</h3>
-        <div className="mt-5 grid grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
           {nfts?.filter((item) => item).map((nft) => (
-            <div key={nft.metadata?.image} className="shadow-2xl p-4 rounded-lg max-w-[200px] flex flex-col justify-between">
+            <div 
+              key={nft.metadata?.image} 
+              className="shadow-2xl p-4 rounded-lg flex flex-col justify-between w-full"
+            >
             <div>
               <div>
                 <p className="font-bold ">{nft.metadata?.name}</p>
@@ -253,9 +256,12 @@ export const RewardsComponent = () => {
           ))}
         </div>
         <h3 className="font-bold mt-10">IPFS</h3>
-        <div className="mt-5 grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
           {ipfs?.map((item) => (
-            <div key={item.metadata?.image} className="shadow-2xl p-4 rounded-lg max-w-[200px] flex flex-col justify-between">
+            <div 
+              key={item.metadata?.image} 
+              className="shadow-2xl p-4 rounded-lg flex flex-col justify-between w-full"
+            >
             <div>
               <div>
                 <p className="font-bold ">{item.metadata?.name}</p>
