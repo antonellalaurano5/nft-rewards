@@ -86,7 +86,7 @@ export const MyAssetsComponent = () => {
 
   return (
     <div className="relative mt-32 h-screen flex justify-center w-full">
-      <div className="max-w-4xl">
+      <div className="max-w-6xl w-full">
         <div>
           <h5 className="text-2xl font-bold">My Assets</h5>
         </div>
@@ -121,7 +121,7 @@ export const MyAssetsComponent = () => {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-3 lg:grid-cols-3 2xl:grid-cols-4 gap-4 mt-6">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 mt-6">
           {Option === "NFTS" &&
             AssetsNfts
             ?.filter((asset: any) => asset._data?.tokenAddress._value == contractAddress)
