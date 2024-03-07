@@ -12,6 +12,7 @@ import { useIsCollection } from "@/hooks";
 import { useModal } from "@/hooks/modal";
 
 /* import { ethers } from "ethers"; */
+const moralis = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjE1MzJhYWU5LTk3ODEtNDYzOC1iZDkyLTBlMGNjMTBmMGI4OSIsIm9yZ0lkIjoiMTU0NTkxIiwidXNlcklkIjoiMTU0MjM1IiwidHlwZUlkIjoiZGY2NTBmOGQtZTVkZS00YjZhLWEzNTMtZDY1MDg5MmY0ZTRjIiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2OTAzMDA3MTIsImV4cCI6NDg0NjA2MDcxMn0.fDn5x2anKsuKxYUk4Xs7nv-RDCORd067nQyR1TrduuE";
 
 export const MyAssetsComponent = () => {
   const { address: addressWallet } = useAccount();
@@ -26,7 +27,7 @@ export const MyAssetsComponent = () => {
   const RunApp = async () => {
     if (!Moralis.Core.isStarted)
       await Moralis.start({
-        apiKey: process.env.NEXT_PUBLIC_API_KEY,
+        apiKey: moralis,
         // ...and any other configuration
       });
     const address = addressWallet || "";
