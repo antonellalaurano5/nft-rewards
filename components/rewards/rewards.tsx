@@ -9,7 +9,7 @@ import axios from 'axios';
 import { CardProfile } from '../Cards';
 const web3 = new Web3(Web3.givenProvider);
 
-const url = "https://indigo-legal-bear-916.mypinata.cloudd"
+const url = "https://indigo-legal-bear-916.mypinata.cloud"
 
 export const RewardsComponent = () => {
 	const { Modal, hide, isShow, show } = useModal();
@@ -81,7 +81,7 @@ export const RewardsComponent = () => {
       });
       const ipfsHash = await res.text();
       
-      const image = `${url}/ipfs/${ipfsHash}?pinataGatewayToken=${process.env.NEXT_PUBLIC_GATEWAY_TOKEN}`
+      const image = `${url}/ipfs/${ipfsHash}`
       uploadJson(image)
     } catch (e) {
       console.log(e);
