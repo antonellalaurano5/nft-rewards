@@ -9,7 +9,7 @@ import axios from 'axios';
 import { CardProfile } from '../Cards';
 const web3 = new Web3(Web3.givenProvider);
 
-const url = "https://white-deaf-kangaroo-277.mypinata.cloud"
+const url = "https://indigo-legal-bear-916.mypinata.cloudd"
 
 export const RewardsComponent = () => {
 	const { Modal, hide, isShow, show } = useModal();
