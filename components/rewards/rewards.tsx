@@ -106,6 +106,7 @@ export const RewardsComponent = () => {
         body: data,
       });
       //const ipfsHash = await res.text();
+      getFiles();
       setUploading(false);
     } catch (e) {
       console.log(e);
