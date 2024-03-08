@@ -213,11 +213,10 @@ export const RewardsComponent = () => {
           <h5 className="text-2xl font-bold">Rewards</h5>
           
           <button
-            className="text-white font-bold p-2 text-xs bg-orange-400 rounded-lg"
+            className="text-white font-bold py-2 px-3 text-xs bg-orange-400 rounded-lg"
             onClick={show}
           >
-            {" "}
-            + New IPFS{" "}
+            Pin File
           </button>
         </div>
         <h3 className="font-bold mt-10">NFT</h3>
@@ -256,7 +255,7 @@ export const RewardsComponent = () => {
           </div>
           ))}
         </div>
-        <h3 className="font-bold mt-10">IPFS</h3>
+        <h3 className="font-bold mt-10">Files</h3>
         <div className="mt-5 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-4">
           {ipfs?.map((item) => (
             <div 
@@ -293,7 +292,7 @@ export const RewardsComponent = () => {
       <Modal isShow={isShow}>
         <div>
           <div className="text-center">
-            <p className="font-bold text-4xl ">New IPFS</p>
+            <p className="font-bold text-4xl ">Pin File</p>
           </div>
           <div>
             <input
