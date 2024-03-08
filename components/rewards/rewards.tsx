@@ -292,7 +292,7 @@ export const RewardsComponent = () => {
       <Modal isShow={isShow}>
         <div>
           <div className="text-center">
-            <p className="font-bold text-4xl ">New IPFS</p>
+            <p className="font-bold text-4xl ">Pin File</p>
           </div>
           <div>
             <input
@@ -360,7 +360,7 @@ export const RewardsComponent = () => {
       <ModalUsers isShow={isShowUsers}>
         <div>
           <div className="text-center">
-            <p className="font-bold text-4xl ">Pin file</p>
+            <p className="font-bold text-4xl ">Transfer NFT</p>
           </div>
           <div>
           <div className="flex gap-x-4 gap-12">
