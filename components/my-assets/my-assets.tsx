@@ -34,7 +34,7 @@ export const MyAssetsComponent = () => {
     //const chain = EvmChain.GOERLI;
     const response = await Moralis.EvmApi.nft.getWalletNFTs({
       address,
-      chain: '0x5'
+      chain: '11155111'
     });
 
     const results = await response.result;

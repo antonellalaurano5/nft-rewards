@@ -1,5 +1,6 @@
 
-export const contractAddress = "0x6DFa4727fF008D029fb1d1859cAD0b66231B1F42";
+export const contractAddress = "0x8b74f9835f7abc2aBbdD73b22b2312b88C380717";
+// export const contractAddress = "0x6DFa4727fF008D029fb1d1859cAD0b66231B1F42";
 // export const contractAddress = "0xe8cdfd2a4fA397eB50e0c081B2f94BcCCF3cF2ab";
 // export const contractAddress = "0x12AeFAf4478Cf80C2DaD2A6BedCf653313fe322b";
 // export const contractAddress = "0xf57AfF71261b1aAEdADA40c968537a05aA901620";
